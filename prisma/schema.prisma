@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+// User MOdel
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  type     Int     @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  recommendations UserRecommendation[]
+  tokens  AuthToken[]
+}
+
+model AuthToken {
+  id      Int      @id @default(autoincrement())
+  userId  Int
+  token   String   @unique
+  expires DateTime
+  user    User     @relation(fields: [userId], references: [id])
+}
+
+model Book {
+  id          Int      @id @default(autoincrement())
+  title       String
+  author      String
+  description String?
+  publishedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationship with UserRecommendation
+  recommendations UserRecommendation[]
+}
+
+model UserRecommendation {
+  id      Int    @id @default(autoincrement())
+  userId  Int
+  bookId  Int
+  rating  Int
+  comment String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships with User and Book
+  user User @relation(fields: [userId], references: [id])
+  book Book @relation(fields: [bookId], references: [id])
+
+  // Indexes for unique user-book combination
+  @@unique([userId, bookId])
+}
