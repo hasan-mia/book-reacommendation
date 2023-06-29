@@ -4,10 +4,9 @@ const app = express()
 const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
-// const Prisma = require("./app/services/Prisma")
 const authRoute = require("./routes/api/v1/auth.route")
 const userRoute = require("./routes/api/v1/user.route")
-const productRoute = require("./routes/api/v1/product.route")
+const recommendRoute = require("./routes/api/v1/recommend.route");
 
 // Middleware
 app.use(cors())
@@ -21,18 +20,13 @@ app.use(express.static("public"))
 const port = process.env.PORT || 5000
 
 
-app.post('/create', async (req, res)=>{
-  const newUser = await prisma.user.create({data: req.body })
-  console.log(newUser)
-});
-
 // ===================================//
 //        SERVER / API ROUTES         //
 //====================================//
 // apiRoute()
 app.use('/api/v1/auth', authRoute)        // authentication route
 app.use('/api/v1/user', userRoute)        // user route
-app.use('/api/v1/product', productRoute)  // product route
+app.use("/api/v1/books", recommendRoute);  // product route
 
 // // ===================================//
 // //       CIENT / FRONT-END ROUTE      //

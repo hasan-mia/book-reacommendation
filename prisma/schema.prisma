@@ -17,7 +17,7 @@ model User {
   type     Int     @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  recommendations UserRecommendation[]
+  recommendations Recommendation[]
   tokens  AuthToken[]
 }
 
@@ -29,31 +29,19 @@ model AuthToken {
   user    User     @relation(fields: [userId], references: [id])
 }
 
-model Book {
-  id          Int      @id @default(autoincrement())
-  title       String
-  author      String
-  description String?
-  publishedAt DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relationship with UserRecommendation
-  recommendations UserRecommendation[]
-}
-
-model UserRecommendation {
+model Recommendation {
   id      Int    @id @default(autoincrement())
   userId  Int
-  bookId  Int
-  rating  Int
-  comment String?
+  bookId  String
+  image   String
+  rating  Float
+  review  String?
+  source  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relationships with User and Book
   user User @relation(fields: [userId], references: [id])
-  book Book @relation(fields: [bookId], references: [id])
 
   // Indexes for unique user-book combination
   @@unique([userId, bookId])
