@@ -8,14 +8,14 @@ const router = require("express").Router()
   * @apiDescription published a review/recommend post
   * @apiPermission anyone
  */
-router.route("/").post(limiter, verifyJWT, RecommendController.postRecommend)
+router.route("/").post(limiter, verifyJWT, RecommendController.creatRecommend);
 
 /**
   * @api {put} /update recommend by id
   * @apiDescription update recommendation
   * @apiPermission anyone
  */  
-router.route("/recommend/:id").put(limiter, verifyJWT, RecommendController.recommendUpdate)
+router.route("/recommend/:id").put(limiter, verifyJWT, RecommendController.updateRecommend)
 
 /**
   * @api {get} /get all recommend / review

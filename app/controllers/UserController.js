@@ -9,7 +9,6 @@ const singleUser = async (req, res) => {
 		const user = await prisma.user.findUnique({
 			where: { email: req.body.email },
 		});
-		console.log(user);
 		if (user) {
 			res.status(200).send({
 				status: 200,

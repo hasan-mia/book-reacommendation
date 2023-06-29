@@ -35,14 +35,14 @@ model Recommendation {
   bookId  String
   image   String
   rating  Float
-  review  String?
+  review  String
+  title   String
+  description String
+  author String
   source  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relationships with User and Book
+  // Relationships with User
   user User @relation(fields: [userId], references: [id])
-
-  // Indexes for unique user-book combination
-  @@unique([userId, bookId])
 }

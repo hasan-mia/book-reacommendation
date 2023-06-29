@@ -4,106 +4,74 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // ========Create a review============
-const postRecommend = async (req, res) => {
-	const {
-		title,
-		description,
-		author,
-		userId,
-		bookId,
-		image,
-		rating,
-		review,
-		source,
-	} = req.body;
-
+const creatRecommend = async (req, res) => {
 	try {
 		const recommendation = await prisma.recommendation.create({
-			data: {
-				title,
-				description,
-				author,
-				userId,
-				bookId,
-				image,
-				rating,
-				review,
-				source,
-			},
+			data: req.body,
 		});
-		if (recommendation) {
-			res.status(200).json({
-				status: 200,
+		if (!recommendation) {
+			res
+				.status(404)
+				.send({ status: 404, success: false, message: "recommend not found" });
+		} else {
+			res.status(201).json({
+				status: 201,
 				success: true,
-				message: "Review added successfully",
+				message: "recommend create successfully",
 				data: recommendation,
 			});
 		}
 	} catch (error) {
+		console.log(error);
 		handlePrismaError(error, res);
 	}
 };
 
 // ========update review ============
-const recommendUpdate = async (req, res) => {
-	const imagesUrl = [];
-
-	if (req.files) {
-		for (const file of req.files) {
-			imagesUrl.push(
-				domain + `/upload/images/${file.filename.replace(/\s+/g, "")}`,
-			);
-		}
-	}
-	// Create image post object for mongodb
-	const recommendUpdate = {
-		title: req.body.title,
-		description: req.body.description,
-		author: req.body.author,
-		bookId: req.body.bookId,
-		rating: req.body.rating,
-		review: req.body.review,
-		source: req.body.source,
-	};
+const updateRecommend = async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
-		if (post.userId === req.body.userId || req.body.isAdmin) {
-			await post.updateOne({ $set: recommendUpdate });
-			res.status(200).send({
-				status: 200,
-				success: true,
-				message: "Product update successfully",
-				data: recommendUpdate,
+		const recommendation = await prisma.recommendation.update({
+			where: { id: +req.params.id },
+			data: req.body,
+		});
+
+		if (!recommendation) {
+			return res.status(404).json({
+				status: 404,
+				success: false,
+				message: "Recommendation not found",
 			});
-		} else {
-			res
-				.status(403)
-				.send({ status: 403, success: false, message: "you can't update" });
 		}
+
+		return res.status(200).json({
+			status: 200,
+			success: true,
+			message: "Recommendation updated successfully",
+			data: recommendation,
+		});
 	} catch (error) {
-		return res.status(500).send(error);
+		handlePrismaError(error, res);
 	}
 };
 
 // ========get all recommend ============
 const getRecommend = async (req, res) => {
 	try {
-		const product = await Post.findOne({ slug: req.params.slug });
-		console.log(product);
-		if (!product) {
+		const recommend = await prisma.recommendation.findMany();
+		if (!recommend) {
 			res
 				.status(404)
-				.send({ status: 404, success: false, message: "Product not found" });
+				.send({ status: 404, success: false, message: "recommend not found" });
 		} else {
 			res.status(200).send({
 				status: 200,
 				success: true,
-				message: "Product found",
-				data: product,
+				message: "recommend found",
+				data: recommend,
 			});
 		}
 	} catch (error) {
-		res.status(500).send(error);
+		handlePrismaError(error, res);
 	}
 };
 
@@ -115,14 +83,12 @@ const getAllBooks = async (req, res) => {
 		);
 		const data = response.data;
 		if (data) {
-			res
-				.status(200)
-				.send({
-					status: 200,
-					success: true,
-					message: "found books",
-					data: data,
-				});
+			res.status(200).send({
+				status: 200,
+				success: true,
+				message: "found books",
+				data: data,
+			});
 		}
 	} catch (error) {
 		handlePrismaError(error, res);
@@ -138,22 +104,20 @@ const getBookDetails = async (req, res) => {
 		);
 		const book = response.data;
 		if (book) {
-			res
-				.status(200)
-				.send({
-					status: 200,
-					success: true,
-					message: "found books",
-					data: book,
-				});
+			res.status(200).send({
+				status: 200,
+				success: true,
+				message: "found books",
+				data: book,
+			});
 		}
 	} catch (error) {
 		handlePrismaError(error, res);
 	}
 };
 module.exports = {
-	postRecommend,
-	recommendUpdate,
+	creatRecommend,
+	updateRecommend,
 	getRecommend,
 	getAllBooks,
 	getBookDetails,
