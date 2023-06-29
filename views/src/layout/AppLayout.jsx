@@ -1,12 +1,14 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
+import Footer from '../frontend/components/Footer';
 import Navigation from '../frontend/components/Navigation';
 
 function AppLayout({ children }) {
     return (
         <>
             <Navigation />
-            <div className="container mx-auto px-8">{children}</div>
+            <div className="container mx-auto min-h-screen">{children}</div>
+            <Footer />
             <Toaster
                 position="top-center"
                 reverseOrder={false}

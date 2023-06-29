@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
 
@@ -9,4 +10,4 @@ function App() {
     );
 }
 
-export default App;
+export default React.memo(App);
