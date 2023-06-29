@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 const singleUser = async (req, res) => {
 	try {
 		const user = await prisma.user.findUnique({
-			where: { email: req.body.email },
+			where: { id: +req.params.id },
 		});
 		if (user) {
 			res.status(200).send({

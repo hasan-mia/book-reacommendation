@@ -8,14 +8,14 @@ const limiter = require("../../../app/middleware/limiter");
   * @apiDescription Get all user
   * @apiPermission admin
 */ 
-router.route("/all").get(limiter, verifyJWT, UserController.allleUser)
+router.route("/all").get(limiter, UserController.allleUser)
 
 /**
   * @api {get} get a single user
   * @apiDescription Get a single user
   * @apiPermission admin
 */ 
-router.route("/:id").get(limiter, verifyJWT, UserController.singleUser)
+router.route("/:id").get(limiter, UserController.singleUser)
 
 /**
   * @api {put} /update a user

@@ -54,6 +54,32 @@ const updateRecommend = async (req, res) => {
 	}
 };
 
+// ========delete review ============
+const deleteRecommend = async (req, res) => {
+	try {
+		const recommendation = await prisma.recommendation.delete({
+			where: { id: +req.params.id }
+		});
+
+		if (!recommendation) {
+			return res.status(404).json({
+				status: 404,
+				success: false,
+				message: "Recommendation not found",
+			});
+		}
+
+		return res.status(200).json({
+			status: 200,
+			success: true,
+			message: "Recommendation delete successfully",
+			data: recommendation,
+		});
+	} catch (error) {
+		handlePrismaError(error, res);
+	}
+};
+
 // ========get all recommend ============
 const getRecommend = async (req, res) => {
 	try {
@@ -118,6 +144,7 @@ const getBookDetails = async (req, res) => {
 module.exports = {
 	creatRecommend,
 	updateRecommend,
+	deleteRecommend,
 	getRecommend,
 	getAllBooks,
 	getBookDetails,

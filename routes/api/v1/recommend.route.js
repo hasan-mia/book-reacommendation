@@ -18,6 +18,13 @@ router.route("/").post(limiter, verifyJWT, RecommendController.creatRecommend);
 router.route("/recommend/:id").put(limiter, verifyJWT, RecommendController.updateRecommend)
 
 /**
+  * @api {put} /update recommend by id
+  * @apiDescription update recommendation
+  * @apiPermission anyone
+ */  
+router.route("/recommend/delete/:id").delete(limiter, verifyJWT, RecommendController.deleteRecommend)
+
+/**
   * @api {get} /get all recommend / review
   * @apiDescription get recommend / review
   * @apiPermission anyone
