@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import auth from '../api/auth';
 
 const AuthSlice = createSlice({

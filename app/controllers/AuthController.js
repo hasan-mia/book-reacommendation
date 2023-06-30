@@ -23,12 +23,23 @@ const registerUser = async (req, res) => {
 					password: hashPassword,
 				},
 			});
-			res.status(201).json({
-				status: 201,
-				success: true,
-				message: "Registered successfully",
-				user: newUser,
-			});
+			if (newUser) {
+				const token = await jwt.sign(
+					{
+						id: newUser.id,
+						email: newUser.email,
+						type: newUser.type,
+					},
+					process.env.ACCESS_TOKEN_SECRET,
+				);
+				res.status(201).json({
+					status: 201,
+					success: true,
+					message: "Registered successfully",
+					token: token,
+				});
+			}
+			
 		} catch (error) {
 			handlePrismaError(error, res);
 		}
