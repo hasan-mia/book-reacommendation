@@ -9,10 +9,9 @@ url.allUser = `${config.baseUrl}api/v1/user/all`; // [get]
 url.userInfo = `${config.baseUrl}api/v1/user`; // params as id
 url.updateUser = `${config.baseUrl}api/v1/user/update`; // [put] params as id
 url.deleteUser = `${config.baseUrl}api/v1/user/delete`; // [delete] params as id
-
 // books api
 url.getAllBook = `${config.baseUrl}api/v1/books`; // [get]
-url.getSingleBook = `${config.baseUrl}api/v1/books`; // [get] id with parameters
+url.getBookDetails = `${config.baseUrl}api/v1/books`; // [get] id with parameters
 // recommand api
 url.createRecommend = `${config.baseUrl}api/v1/books`; // [post]
 url.updateRecommend = `${config.baseUrl}api/v1/books/recommend/update`; // id with parameters  [put]

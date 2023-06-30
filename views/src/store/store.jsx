@@ -1,24 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import AuthSlice from './slice/AuthSlice';
-import CategorySlice from './slice/CategorySlice';
-import PostSlice from './slice/PostSlice';
-import SocketSlice from './slice/SocketSlice';
+import BookSlice from './slice/BookSlice';
+import RecommendSlice from './slice/RecommendSlice';
 
 const store = configureStore({
     reducer: {
         auth: AuthSlice,
-        category: CategorySlice,
-        post: PostSlice,
-        socket: SocketSlice,
+        book: BookSlice,
+        recommend: RecommendSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [
                     'auth/allUser/fulfilled',
-                    'category/allCategory/fulfilled',
-                    'post/allPost/fulfilled',
-                    'socket/setSocket',
+                    'recommend/allRecommend/fulfilled',
+                    'book/getAllBook/fulfilled',
                 ],
             },
         }),

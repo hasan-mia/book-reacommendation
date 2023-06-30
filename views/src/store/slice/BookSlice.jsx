@@ -1,27 +1,27 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import category from '../api/category';
+import book from '../api/book';
 
 const CategorySlice = createSlice({
-    name: 'category',
+    name: 'book',
     initialState: {
         isLoading: false,
         isError: false,
-        categories: null,
+        books: null,
     },
     extraReducers: (builder) => {
         // get all post
-        builder.addCase(category.allCategory.pending, (state) => {
+        builder.addCase(book.getAllBook.pending, (state) => {
             state.isLoading = true;
         });
 
-        builder.addCase(category.allCategory.fulfilled, (state, action) => {
+        builder.addCase(book.getAllBook.fulfilled, (state, action) => {
             const { data } = action.payload;
             state.isLoading = false;
-            state.categories = data.data;
+            state.books = data.data;
         });
 
-        builder.addCase(category.allCategory.rejected, (state) => {
+        builder.addCase(book.getAllBook.rejected, (state) => {
             state.isLoading = false;
             state.isError = true;
         });

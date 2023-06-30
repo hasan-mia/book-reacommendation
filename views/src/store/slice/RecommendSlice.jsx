@@ -1,31 +1,31 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import post from '../api/post';
+import recommend from '../api/recommend';
 
-const PostSlice = createSlice({
-    name: 'post',
+const RecommendSlice = createSlice({
+    name: 'recommend',
     initialState: {
         isLoading: false,
         isError: false,
-        posts: null,
+        recommends: null,
     },
     extraReducers: (builder) => {
         // get all post
-        builder.addCase(post.allPost.pending, (state) => {
+        builder.addCase(recommend.allRecommend.pending, (state) => {
             state.isLoading = true;
         });
 
-        builder.addCase(post.allPost.fulfilled, (state, action) => {
+        builder.addCase(recommend.allRecommend.fulfilled, (state, action) => {
             const { data } = action.payload;
             state.isLoading = false;
-            state.posts = data.data;
+            state.recommends = data.data;
         });
 
-        builder.addCase(post.allPost.rejected, (state) => {
+        builder.addCase(recommend.allRecommend.rejected, (state) => {
             state.isLoading = false;
             state.isError = true;
         });
     },
 });
 
-export default PostSlice.reducer;
+export default RecommendSlice.reducer;
