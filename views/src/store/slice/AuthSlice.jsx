@@ -25,7 +25,7 @@ const AuthSlice = createSlice({
             state.isLoading = false;
             state.isLogin = false;
             localStorage.removeItem('session');
-            toast.info('logout success');
+            toast.success('logout success');
         },
     },
     extraReducers: (builder) => {

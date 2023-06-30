@@ -16,7 +16,6 @@ function Login() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loading, setLoading] = useState(false);
-    // const [payload, setPayload] = useState(null);
     const credentialHandler = (name, data) => {
         if (name === 'email') {
             setEmail(data);
@@ -32,7 +31,6 @@ function Login() {
             email,
             password: pass,
         };
-        // dispatch(auth.signIn(data));
         const res = await auth.signinUser(data);
         if (res.status === 200) {
             toast.success(`${res.data.message}`);
@@ -41,7 +39,7 @@ function Login() {
             const decodedPayload = atob(payloadBase64);
             dispatch(setAuth(JSON.parse(decodedPayload)));
             setLoading(false);
-            navigate('/', { replace: false });
+            navigate(-1, { replace: false });
         } else if (res.status === 406) {
             toast.error(`${res.data.error}`);
             setLoading(false);

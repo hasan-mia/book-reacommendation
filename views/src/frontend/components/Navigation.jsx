@@ -1,14 +1,22 @@
-import { Button, IconButton, MobileNav, Navbar, Typography } from '@material-tailwind/react';
+import { Button, Collapse, IconButton, Navbar, Typography } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { HiBars3 } from 'react-icons/hi2';
 import { MdClose } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { logOut } from '../../store/slice/AuthSlice';
 
 function Navigation() {
+    const dispatch = useDispatch();
     const [openNav, setOpenNav] = useState(false);
     const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.auth);
     const handleRoute = (link) => {
         navigate(link, { replace: true });
+    };
+    // handle logut
+    const handleLogut = () => {
+        dispatch(logOut());
     };
 
     useEffect(() => {
@@ -64,12 +72,20 @@ function Navigation() {
                 <div className="hidden lg:block">{navList}</div>
                 <div className="hidden lg:inline-block">
                     <div className="flex flex-row gap-2 items-center">
-                        <Button color="green" onClick={() => handleRoute('/signin')}>
-                            Signin
-                        </Button>
-                        <Button color="red" onClick={() => handleRoute('/signup')}>
-                            Signup
-                        </Button>
+                        {userInfo ? (
+                            <Button color="red" onClick={handleLogut}>
+                                Signout
+                            </Button>
+                        ) : (
+                            <>
+                                <Button color="green" onClick={() => handleRoute('/signin')}>
+                                    Signin
+                                </Button>
+                                <Button color="red" onClick={() => handleRoute('/signup')}>
+                                    Signup
+                                </Button>
+                            </>
+                        )}
                     </div>
                 </div>
                 <IconButton
@@ -81,19 +97,27 @@ function Navigation() {
                     {openNav ? <MdClose className="text-2xl" /> : <HiBars3 className="text-2xl" />}
                 </IconButton>
             </div>
-            <MobileNav open={openNav}>
+            <Collapse open={openNav}>
                 <div className="container mx-auto">
                     {navList}
                     <div className="flex flex-row gap-2 items-center">
-                        <Button color="green" onClick={() => handleRoute('/signin')}>
-                            Signin
-                        </Button>
-                        <Button color="red" onClick={() => handleRoute('/signup')}>
-                            Signup
-                        </Button>
+                        {userInfo ? (
+                            <Button color="red" onClick={handleLogut}>
+                                Signout
+                            </Button>
+                        ) : (
+                            <>
+                                <Button color="green" onClick={() => handleRoute('/signin')}>
+                                    Signin
+                                </Button>
+                                <Button color="red" onClick={() => handleRoute('/signup')}>
+                                    Signup
+                                </Button>
+                            </>
+                        )}
                     </div>
                 </div>
-            </MobileNav>
+            </Collapse>
         </Navbar>
     );
 }

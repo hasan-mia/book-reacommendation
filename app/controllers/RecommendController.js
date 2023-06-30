@@ -5,9 +5,38 @@ const prisma = new PrismaClient();
 
 // ========Create a review============
 const creatRecommend = async (req, res) => {
+	const {
+		userId,
+		bookId,
+		image,
+		review,
+		title,
+		description,
+		author,
+		source,
+		ratings,
+	} = req.body;
+
 	try {
 		const recommendation = await prisma.recommendation.create({
-			data: req.body,
+			data: {
+				userId,
+				bookId,
+				image,
+				review,
+				title,
+				description,
+				author,
+				source,
+				ratings: {
+					create: ratings.map((rating) => ({
+						rating: rating.rating,
+					})),
+				},
+			},
+			include: {
+				ratings: true,
+			},
 		});
 		if (!recommendation) {
 			res
@@ -29,11 +58,43 @@ const creatRecommend = async (req, res) => {
 
 // ========update review ============
 const updateRecommend = async (req, res) => {
+	const {
+		userId,
+		bookId,
+		image,
+		review,
+		title,
+		description,
+		author,
+		source,
+		ratings,
+	} = req.body;
 	try {
 		const recommendation = await prisma.recommendation.update({
 			where: { id: +req.params.id },
-			data: req.body,
+			data: {
+				userId,
+				bookId,
+				image,
+				review,
+				title,
+				description,
+				author,
+				source,
+			},
 		});
+		// Update ratings (if provided)
+		if (ratings && ratings.length > 0) {
+			await prisma.rating.deleteMany({
+				where: { recommendationId: +req.params.id },
+			});
+			await prisma.rating.createMany({
+				data: ratings.map((rating) => ({
+					recommendationId: +req.params.id,
+					rating: rating.rating,
+				})),
+			});
+		}
 
 		if (!recommendation) {
 			return res.status(404).json({
@@ -58,7 +119,7 @@ const updateRecommend = async (req, res) => {
 const deleteRecommend = async (req, res) => {
 	try {
 		const recommendation = await prisma.recommendation.delete({
-			where: { id: +req.params.id }
+			where: { id: +req.params.id },
 		});
 
 		if (!recommendation) {
@@ -101,6 +162,40 @@ const getRecommend = async (req, res) => {
 	}
 };
 
+// ========get all rating using bookId ============
+const getRatings = async (req, res) => {
+	const { bookId } = req.params;
+
+	try {
+		const ratings = await prisma.rating.findMany({
+			where: { recommendation: { bookId } },
+			include: { recommendation: true },
+		});
+
+		if (ratings.length === 0) {
+			return res.status(404).send({
+				status: 404,
+				success: false,
+				message: "No ratings found for the book",
+			});
+		}
+
+		const averageRating = ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length;
+
+		return res.status(200).send({
+			status: 200,
+			success: true,
+			message: "Ratings retrieved successfully",
+			data: {
+				bookId,
+				ratings,
+				averageRating,
+			},
+		});
+	} catch (error) {
+		handlePrismaError(error, res);
+	}
+};
 // ========get all books ============
 const getAllBooks = async (req, res) => {
 	try {
@@ -146,6 +241,7 @@ module.exports = {
 	updateRecommend,
 	deleteRecommend,
 	getRecommend,
+	getRatings,
 	getAllBooks,
 	getBookDetails,
 };

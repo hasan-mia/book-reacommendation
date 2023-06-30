@@ -32,6 +32,13 @@ router.route("/recommend/delete/:id").delete(limiter, verifyJWT, RecommendContro
 router.route("/recommend").get(limiter, RecommendController.getRecommend)
 
 /**
+  * @api {put} /get rating by bookId
+  * @apiDescription get avarage rating
+  * @apiPermission anyone
+ */  
+router.route("/rating/:bookId").get(limiter, RecommendController.getRatings)
+
+/**
  * @api {get} /get all books 
  * @apiDescription get all books from google api
  * @apiPermission anyone

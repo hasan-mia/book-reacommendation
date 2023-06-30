@@ -29,9 +29,15 @@ recommend.deleteRecommend = async (payload, id) => {
         .catch((err) => err.response);
     return res;
 };
-// all recommend
-recommend.allRecommend = createAsyncThunk(`${name}allRecommend`, async () => {
-    const res = await axios.get(url.allRecommend, config.basicHeader);
+// get all recommend
+recommend.getAllRecommend = createAsyncThunk(`${name}getAllRecommend`, async () => {
+    const res = await axios.get(url.getAllRecommend, config.simpleHeader);
+    return res;
+});
+
+// get rating
+recommend.getAllRating = createAsyncThunk(`${name}getAllRating`, async (bookId) => {
+    const res = await axios.get(`${url.getAllRating}/${bookId}`, config.simpleHeader);
     return res;
 });
 

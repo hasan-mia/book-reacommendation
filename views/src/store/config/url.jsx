@@ -16,6 +16,8 @@ url.getBookDetails = `${config.baseUrl}api/v1/books`; // [get] id with parameter
 url.createRecommend = `${config.baseUrl}api/v1/books`; // [post]
 url.updateRecommend = `${config.baseUrl}api/v1/books/recommend/update`; // id with parameters  [put]
 url.deleteRecommend = `${config.baseUrl}api/v1/books/recommend/delete`; // id with parameters [delete]
-url.allRecommend = `${config.baseUrl}api/v1/books/recommend`; // [get]
+url.getAllRecommend = `${config.baseUrl}api/v1/books/recommend`; // [get]
+// avarage rating api
+url.getAllRating = `${config.baseUrl}api/v1/books/rating`; // [get] bookId with parameters
 
 export default url;

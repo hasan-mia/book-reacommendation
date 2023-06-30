@@ -39,7 +39,7 @@ function Register() {
             const decodedPayload = atob(payloadBase64);
             dispatch(setAuth(JSON.parse(decodedPayload)));
             setLoading(false);
-            navigate('/', { replace: false });
+            navigate(-1, { replace: false });
         } else if (res.status === 406) {
             toast.error(`${res.data.error}`);
             setLoading(false);
