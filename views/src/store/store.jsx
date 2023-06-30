@@ -16,6 +16,7 @@ const store = configureStore({
                     'auth/allUser/fulfilled',
                     'recommend/allRecommend/fulfilled',
                     'book/getAllBook/fulfilled',
+                    'book/getBookDetails/fulfilled',
                 ],
             },
         }),

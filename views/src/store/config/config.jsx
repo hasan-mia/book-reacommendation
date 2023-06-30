@@ -8,7 +8,6 @@ config.simpleHeader = {
         'Access-Control-Allow-Origin': '*',
     },
 };
-
 config.basicHeader = {
     headers: {
         'Content-type': 'application/json',
@@ -16,7 +15,16 @@ config.basicHeader = {
         Authorization: `Bearer ${config.accesstoken}`,
     },
 };
-
+config.paramsWithHeader = (param) => {
+    const params = {
+        params: param,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${config.accesstoken}`,
+        },
+    };
+    return params;
+};
 config.payloadWithHeader = (payload) => {
     const params = {
         headers: {
