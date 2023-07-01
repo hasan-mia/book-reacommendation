@@ -1,9 +1,11 @@
 ## Book Recommendation with Prisma and GoogleBooks API - Documentation
 
-This is the book recommendation REST API with authentication and authorization with Prisma and google book api.
+This is the book recommendation REST API with authentication and authorization with Prisma and google Book api.where user can recommend or review with rating the specific book.
+All book recommendations/ review are displayed in the review route and All review is displayed with auto loading while scrolling down.
+To recommend / review User Must have to login with Name, Email and Password.
 
-1. For REST API I used express and prisma
-2. For the frontend I used REACT
+1. For REST API use express, prisma, MySQL
+2. For the frontend I used REACT with tailwind and Redux with Redux-Toolkit
 
 ### Folder and File Stracture
 
@@ -71,16 +73,27 @@ __.env.example (rename this to .env and update your credentials both server and 
 
 ### To run this project follow these steps
 
-#### ENV Setup and Change value
+#### ENV Setup and Change value both server and client
 
 I. Copy .env.example and rename .env
 II. Make sure your your localhost is running on the same (if you are in local)
 III. Change the dbname and password or full DATABASE_URL / give example for localhost
 
+#### For Server
+
 ```bash
 NODE_ENV=development
+BASE_URL=http://localhost:5000/
 ACCESS_TOKEN_SECRET=YmAb0fJLyOVdX5jWZDWGZ6+2r/feExwbbLmd7EUnpV/CBKbupVApVCw=
 DATABASE_URL="mysql://root:@localhost:3306/bookrecommand"
+```
+
+#### For Client
+
+```bash
+NODE_ENV=development
+REACT_APP_BASE_URL=http://localhost:5000/
+REACT_APP_ACCESS_TOKEN_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VydHdvQHVzZXIuY29tIiwidHlwZSI6MCwiaWF0IjoxNjg3OTc0NDkzfQ.iS93X9oLsuPtghNbIdeWE30pC-ENMqif1smEUrivXJ4
 ```
 
 ### After setup DB run this command for prisma
@@ -143,7 +156,7 @@ https://documenter.getpostman.com/view/25680118/2s93zB4MKP
 authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VydHdvQHVzZXIuY29tIiwidHlwZSI6MCwiaWF0IjoxNjg3OTc0NDkzfQ.iS93X9oLsuPtghNbIdeWE30pC-ENMqif1smEUrivXJ4"
 ```
 
-#### Uses tools for server / REST AOI
+## Uses tools for server / REST API
 
 ##### bcrypt
 

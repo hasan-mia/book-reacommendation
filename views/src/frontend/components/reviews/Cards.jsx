@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
 import { HiArrowRight } from 'react-icons/hi2';
 
 export default function Cards({ review, id }) {
-    console.log(review);
     return (
         <Card className="flex-col justify-center">
             <CardHeader

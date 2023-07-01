@@ -18,6 +18,7 @@ const store = configureStore({
                     'book/getAllBook/fulfilled',
                     'book/getBookDetails/fulfilled',
                     'recommend/getAllRating/fulfilled',
+                    'recommend/getAllRecommend/fulfilled',
                 ],
             },
         }),

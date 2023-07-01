@@ -31,8 +31,8 @@ recommend.deleteRecommend = async (payload, id) => {
     return res;
 };
 // get all recommend
-recommend.getAllRecommend = createAsyncThunk(`${name}getAllRecommend`, async () => {
-    const res = await axios.get(url.getAllRecommend, config.simpleHeader);
+recommend.getAllRecommend = createAsyncThunk(`${name}getAllRecommend`, async (path) => {
+    const res = await axios.get(path, config.simpleHeader);
     return res;
 });
 

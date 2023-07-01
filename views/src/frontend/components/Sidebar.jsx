@@ -32,6 +32,7 @@ export default function Sidebar({ bookId, image, title, description, author, sou
             const data = {
                 userId: userInfo.id,
                 bookId,
+                userName: userInfo.name,
                 title,
                 author,
                 description,

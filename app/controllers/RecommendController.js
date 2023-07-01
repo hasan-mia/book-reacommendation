@@ -157,39 +157,47 @@ const deleteRecommend = async (req, res) => {
 // ========get all recommend ============
 const getRecommend = async (req, res) => {
 	try {
-		const page = parseInt(req.query.page) || 1;
-		const perPage = 3;
-		const skipCount = (page - 1) * perPage;
-
-		const totalCount = await prisma.recommendation.count();
-		const totalPages = Math.ceil(totalCount / perPage);
+		const { page, limit } = req.query;
+		const currentPage = parseInt(page) || 1;
+		const perPage = parseInt(limit) || 3;
 
 		const recommend = await prisma.recommendation.findMany({
-			skip: skipCount,
+			skip: (currentPage - 1) * perPage,
 			take: perPage,
 		});
 
-		if (recommend.length === 0) {
-			res.status(404).send({
+		const totalRecommendations = await prisma.recommendation.count();
+
+		if (!recommend) {
+			res.status(404).json({
 				status: 404,
 				success: false,
-				message: "recommend not found",
+				message: "Recommendations not found",
 			});
 		} else {
-			res.status(200).send({
+			const totalPages = Math.ceil(totalRecommendations / perPage);
+			const nextPage =
+				currentPage < totalPages
+					? `${process.env.BASE_URL}api/v1/books/recommend?page=${
+							currentPage + 1
+					  }&limit=${perPage}`
+					: null;
+			res.status(200).json({
 				status: 200,
 				success: true,
-				message: "recommend found",
+				message: "Recommendations found",
 				data: recommend,
 				pagination: {
-					total: totalCount,
+					total: totalRecommendations,
 					perPage,
-					currentPage: page,
+					currentPage,
 					totalPages,
+					nextPage,
 				},
 			});
 		}
 	} catch (error) {
+		console.log(error);
 		handlePrismaError(error, res);
 	}
 };
