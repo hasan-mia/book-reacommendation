@@ -3,6 +3,8 @@
 This is the book recommendation REST API with authentication and authorization with Prisma and google Book api.where user can recommend or review with rating the specific book.
 All book recommendations/ review are displayed in the review route and All review is displayed with auto loading while scrolling down.
 To recommend / review User Must have to login with Name, Email and Password.
+Live Client[https://reacommendation.vercel.app/]
+Live Server[https://bookrecommendation-server.onrender.com/]
 
 1. For REST API use express, prisma, MySQL
 2. For the frontend I used REACT with tailwind and Redux with Redux-Toolkit
