@@ -1,9 +1,9 @@
-import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
+import { Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react';
 import { HiArrowRight } from 'react-icons/hi2';
 
 export default function Cards({ book, id }) {
     return (
-        <Card className="flex-col justify-center">
+        <Card className="flex-col justify-center hover:shadow-green-100 transition-all mb-0 pb-0">
             <CardHeader
                 shadow={false}
                 floated={false}
@@ -12,33 +12,41 @@ export default function Cards({ book, id }) {
                 <img
                     src={book?.imageLinks?.thumbnail}
                     alt={book.title}
-                    className="boject-cover w-2/3"
+                    className="boject-cover w-2/3 max-h-48"
                 />
             </CardHeader>
-            <CardBody>
-                <Typography variant="h2" color="blue-gray" className="mb-2 text-lg">
+            <CardBody className="text-center px-1 mb-0 pb-0">
+                <Typography
+                    variant="h2"
+                    color="blue-gray"
+                    className="mb-2 text-md font-normal text-center px-0"
+                >
                     {book.title}
                 </Typography>
-                <Typography variant="h6" color="blue" className="mb-2 text-sm">
-                    Author: &nbsp;
+                <Typography variant="h6" color="blue-gray" className="mb-2 text-sm font-thin">
+                    By &nbsp;
                     {book.authors?.map((item) => (
-                        <span key={Math.random()}>{item}</span>
+                        <span key={Math.random()} className="font-semibold">
+                            {item}
+                        </span>
                     ))}
                 </Typography>
-                <Typography variant="h6" color="green" className="mb-2 text-sm">
-                    Publisher: &nbsp;{book.publisher}
+                <Typography variant="h6" color="blue-gray" className="mb-2 text-sm font-thin">
+                    Published by &nbsp; <span className="font-semibold">{book.publisher}</span>
                 </Typography>
-                <Typography variant="h6" color="gray" className="font-normal mb-8">
-                    {book.description.length >= 120 && book.description.slice(0, 120)}
+                <Typography variant="h6" color="blue-gray" className="font-thin mb-2">
+                    {book.description.length >= 60 && book.description.slice(0, 60)}
                 </Typography>
+            </CardBody>
+            <CardFooter>
                 <a
                     href={`/details/${id}`}
-                    className="flex items-center justify-center text-green-700 font-bold gap-2"
+                    className="flex items-center justify-center bg-green-700 text-white border rounded-b-md w-full p-2 font-bold gap-x-2"
                 >
-                    Learn More
+                    View Details
                     <HiArrowRight strokeWidth={2} className="w-4 h-4" />
                 </a>
-            </CardBody>
+            </CardFooter>
         </Card>
     );
 }

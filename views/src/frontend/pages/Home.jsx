@@ -12,13 +12,14 @@ function Home() {
             dispatch(book.getAllBook());
         }
     }, [books, dispatch]);
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-2 gap-y-10 my-2">
             {isLoading ? (
                 <BookCard />
             ) : (
                 books?.map((item) => (
-                    <div className="bg-gray-40 p-2 rounded-md" key={Math.random()}>
+                    <div className="bg-gray-40 px-1 rounded-md" key={Math.random()}>
                         <Cards book={item.volumeInfo} id={item.id} />
                     </div>
                 ))

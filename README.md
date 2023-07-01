@@ -98,6 +98,24 @@ REACT_APP_BASE_URL=http://localhost:5000/
 REACT_APP_ACCESS_TOKEN_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VydHdvQHVzZXIuY29tIiwidHlwZSI6MCwiaWF0IjoxNjg3OTc0NDkzfQ.iS93X9oLsuPtghNbIdeWE30pC-ENMqif1smEUrivXJ4
 ```
 
+### For mySql use this function on scheema.prisma file
+
+```bash
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+ }
+```
+
+### For postGreSql use this function on scheema.prisma file
+
+```bash
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+```
+
 ### After setup DB run this command for prisma
 
 ```bash
@@ -130,11 +148,13 @@ yarn server
 
 ### Client with at http://localhost:3000
 
+##### Open views folder ( Go to views directory and run)
+
 ```bash
-cd views ( Go to views directory and run)
-npm start
+cd views
+npm install & npm start
 or
-yarn start
+yarn start & yarn start
 ```
 
 ### build for production with minification

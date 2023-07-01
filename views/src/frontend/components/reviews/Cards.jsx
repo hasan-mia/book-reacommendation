@@ -15,8 +15,12 @@ export default function Cards({ review, id }) {
     }, [dispatch, id, ratings]);
     return (
         <Card className="w-96">
-            <CardHeader shadow={false} floated={false} className="h-96">
-                <img src={review.image} className="w-full h-full object-cover" alt={review.title} />
+            <CardHeader
+                shadow={false}
+                floated={false}
+                className="w-full flex justify-center shrink-0 m-0 rounded"
+            >
+                <img src={review.image} className="boject-cover w-2/3" alt={review.title} />
             </CardHeader>
             <CardBody>
                 <div className="flex items-center justify-between mb-2">
