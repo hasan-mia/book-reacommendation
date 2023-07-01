@@ -10,10 +10,10 @@ This is the book recommendation REST API with authentication and authorization w
 ```bash
 __index.js (server index file)
 __config
-______mongoDbonnect.js (mongoose connection  method)
-______mysqlDbonnect.js (normal mysql connection  method)
+______mongoDbonnect.js (mongoose connection  method / [N.B: no need])
+______mysqlDbonnect.js (normal mysql connection  method / [N.B: no need])
 __prisma
-______schema.prisma (prisma setup)
+______schema.prisma (prisma setup and database scheema model here)
 _app
 ______controllers ( write your all rest api controller here)
 _______AuthController.js (user register, login and get userinfo api)
@@ -54,15 +54,93 @@ _________layout (frontend and admin layout)
 _________routes (frontend and admin routes)
 _________store (redux state management)
 ____________api (setup rest api link and fetching data to getting response)
+_______________auth.jsx (fetch data from auth and user routes with axios)
+_______________book.jsx (fetch data from book routes with axios)
+_______________recommend.jsx (fetch data from recommend routes with axios)
+____________config (setup rest api link and configuration)
 _______________config.jsx (basic header and client env settings)
 _______________url.jsx (all api routes/ link)
-_______________auth.jsx (fetch auth routes)
-____________Slice (all slice will write here for dispatch data)
+____________slice (all slice will write here for dispatch data)
 _______________AuthSlice.jsx (authentication slice)
-_______________CartSlice.jsx (full local storage base Cart)
-____________Store (all fetching data will store here)
+_______________BookSlice.jsx (book slice)
+_______________RecommendSlice.jsx (recommend slice)
+____________store (all fetching data will store here)
 __.env.example (rename this to .env and update your credentials both server and client site)
 
+```
+
+### To run this project follow these steps
+
+#### ENV Setup and Change value
+
+I. Copy .env.example and rename .env
+II. Make sure your your localhost is running on the same (if you are in local)
+III. Change the dbname and password or full DATABASE_URL / give example for localhost
+
+```bash
+NODE_ENV=development
+ACCESS_TOKEN_SECRET=YmAb0fJLyOVdX5jWZDWGZ6+2r/feExwbbLmd7EUnpV/CBKbupVApVCw=
+DATABASE_URL="mysql://root:@localhost:3306/bookrecommand"
+```
+
+### After setup DB run this command for prisma
+
+```bash
+npx prisma generate
+and
+npx prisma db push
+```
+
+### Generate secret totken
+
+```bash
+openssl rand -base64 128
+```
+
+### Install Dependencies
+
+```bash
+npm install
+or
+yarn
+```
+
+### Serve with at http://localhost:5000
+
+```bash
+npm run server
+or
+yarn server
+```
+
+### Client with at http://localhost:3000
+
+```bash
+cd views ( Go to views directory and run)
+npm start
+or
+yarn start
+```
+
+### build for production with minification
+
+```bash
+npm run build
+or
+yarn build
+```
+
+### Here is the postman link to see examples of all routes
+
+```bash
+https://documenter.getpostman.com/view/25680118/2s93zB4MKP
+
+```
+
+### Use this token for headers on all post and put method
+
+```bash
+authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VydHdvQHVzZXIuY29tIiwidHlwZSI6MCwiaWF0IjoxNjg3OTc0NDkzfQ.iS93X9oLsuPtghNbIdeWE30pC-ENMqif1smEUrivXJ4"
 ```
 
 #### Uses tools for server / REST AOI
@@ -89,6 +167,8 @@ __.env.example (rename this to .env and update your credentials both server and 
 
 ##### helmet
 
+##### axios
+
 ##### require-stack
 
 ### Uses tools for cient/frontend
@@ -101,61 +181,8 @@ __.env.example (rename this to .env and update your credentials both server and 
 
 ##### tailwind
 
-### ENV Setup and Change value
+##### material-tailwind
 
-#### To run this project follow these steps
+##### axios
 
-I. Copy .env.example and rename .env
-II. Change the dbname and password or full DATABASE_URL
-
-```bash
-NODE_ENV=development
-ACCESS_TOKEN_SECRET=YmAb0fJLyOVdX5jWZDWGZ6+2r/feExwbbLmd7EUnpV/CBKbupVApVCw=
-DATABASE_URL="mysql://root:@localhost:3306/bookrecommand"
-```
-
-### Generate secret totken
-
-```bash
-openssl rand -base64 128
-```
-
-### Install Dependencies
-
-```bash
-yarn
-or
-npm install
-```
-
-### Serve with at http://localhost:5000
-
-```bash
-yarn server
-or
-npm run server
-```
-
-### Client with at http://localhost:3000
-
-```bash
-cd views (To go views directory and run)
-yarn start
-or
-npm start
-```
-
-### build for production with minification
-
-```bash
-yarn build
-or
-npm run build
-```
-
-### Here is the postman link to see examples of all routes
-
-```bash
-https://documenter.getpostman.com/view/25680118/2s93zB4MKP
-
-```
+##### ract-hot-toast

@@ -6,6 +6,7 @@ import Register from '../auth/Register';
 import BookDetails from '../frontend/pages/BookDetails';
 import Error from '../frontend/pages/Error';
 import Home from '../frontend/pages/Home';
+import Review from '../frontend/pages/Review';
 import AppLayout from '../layout/AppLayout';
 
 function AppRoutes() {
@@ -23,6 +24,7 @@ function AppRoutes() {
             >
                 <Route path="/" element={<Home />} />
                 <Route path="/details/:id" element={<BookDetails />} />
+                <Route path="/review" element={<Review />} />
                 <Route path="/signin" element={<Login />} />
                 <Route path="/signup" element={<Register />} />
             </Route>

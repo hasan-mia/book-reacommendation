@@ -35,23 +35,7 @@ function Navigation() {
             </Typography>
             <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
                 <Link
-                    to="/"
-                    className="uppercase items-center hover:no-underline border-b-2 border-b-transparent hover:border-b-red-500 pb-1 hover:text-green-700"
-                >
-                    Books
-                </Link>
-            </Typography>
-            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-                <Link
-                    to="/"
-                    className="uppercase items-center hover:no-underline border-b-2 border-b-transparent hover:border-b-red-500 pb-1 hover:text-green-700"
-                >
-                    Users
-                </Link>
-            </Typography>
-            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-                <Link
-                    to="/"
+                    to="/review"
                     className="uppercase items-center hover:no-underline border-b-2 border-b-transparent hover:border-b-red-500 pb-1 hover:text-green-700"
                 >
                     Reviews

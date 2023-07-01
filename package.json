@@ -7,11 +7,7 @@
 		"start": "node index.js",
 		"server": "nodemon index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "eslint src/js",
-		"stop-win": "Taskkill /IM node.exe /F",
-		"stop-linux": "killall node",
-		"herou-postbuild": "YARN_PRODUCTION=false yarn install --prefix views && yarn run build --prefix views",
-		"postinstall": "cd ./views && yarn"
+		"postinstall": "cd ./views && npm install"
 	},
 	"keywords": [],
 	"author": "Hasan Mia",
@@ -29,8 +25,6 @@
 		"helmet": "^6.0.1",
 		"jsonwebtoken": "^9.0.0",
 		"moment": "^2.29.4",
-		"mongoose": "^6.8.0",
-		"mongoose-slug-generator": "^1.0.4",
 		"morgan": "^1.10.0",
 		"multer": "^1.4.5-lts.1",
 		"mysql": "^2.18.1",
