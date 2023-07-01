@@ -8,6 +8,7 @@ const creatRecommend = async (req, res) => {
 	const {
 		userId,
 		bookId,
+		userName,
 		image,
 		review,
 		title,
@@ -22,6 +23,7 @@ const creatRecommend = async (req, res) => {
 			data: {
 				userId,
 				bookId,
+				userName,
 				image,
 				review,
 				title,
@@ -61,6 +63,7 @@ const updateRecommend = async (req, res) => {
 	const {
 		userId,
 		bookId,
+		userName,
 		image,
 		review,
 		title,
@@ -75,6 +78,7 @@ const updateRecommend = async (req, res) => {
 			data: {
 				userId,
 				bookId,
+				userName,
 				image,
 				review,
 				title,
@@ -117,26 +121,35 @@ const updateRecommend = async (req, res) => {
 
 // ========delete review ============
 const deleteRecommend = async (req, res) => {
+	const recommendationId = parseInt(req.params.id);
+
 	try {
-		const recommendation = await prisma.recommendation.delete({
-			where: { id: +req.params.id },
+		// Delete associated ratings first
+		await prisma.rating.deleteMany({
+			where: { recommendationId },
 		});
 
-		if (!recommendation) {
-			return res.status(404).json({
+		// Delete the recommendation
+		const deletedRecommendation = await prisma.recommendation.delete({
+			where: { id: recommendationId },
+		});
+
+		if (!deletedRecommendation) {
+			res.status(404).json({
 				status: 404,
 				success: false,
 				message: "Recommendation not found",
 			});
+		} else {
+			res.status(200).json({
+				status: 200,
+				success: true,
+				message: "Recommendation deleted successfully",
+				data: deletedRecommendation,
+			});
 		}
-
-		return res.status(200).json({
-			status: 200,
-			success: true,
-			message: "Recommendation delete successfully",
-			data: recommendation,
-		});
 	} catch (error) {
+		console.log(error);
 		handlePrismaError(error, res);
 	}
 };
@@ -144,17 +157,36 @@ const deleteRecommend = async (req, res) => {
 // ========get all recommend ============
 const getRecommend = async (req, res) => {
 	try {
-		const recommend = await prisma.recommendation.findMany();
-		if (!recommend) {
-			res
-				.status(404)
-				.send({ status: 404, success: false, message: "recommend not found" });
+		const page = parseInt(req.query.page) || 1;
+		const perPage = 3;
+		const skipCount = (page - 1) * perPage;
+
+		const totalCount = await prisma.recommendation.count();
+		const totalPages = Math.ceil(totalCount / perPage);
+
+		const recommend = await prisma.recommendation.findMany({
+			skip: skipCount,
+			take: perPage,
+		});
+
+		if (recommend.length === 0) {
+			res.status(404).send({
+				status: 404,
+				success: false,
+				message: "recommend not found",
+			});
 		} else {
 			res.status(200).send({
 				status: 200,
 				success: true,
 				message: "recommend found",
 				data: recommend,
+				pagination: {
+					total: totalCount,
+					perPage,
+					currentPage: page,
+					totalPages,
+				},
 			});
 		}
 	} catch (error) {
@@ -180,7 +212,8 @@ const getRatings = async (req, res) => {
 			});
 		}
 
-		const averageRating = ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length;
+		const averageRating =
+			ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length;
 
 		return res.status(200).send({
 			status: 200,

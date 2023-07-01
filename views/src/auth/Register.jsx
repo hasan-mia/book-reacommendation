@@ -13,12 +13,15 @@ function Register() {
     const dispatch = useDispatch();
     const [active, setActive] = useState(false);
     const [type, setType] = useState('password');
+    const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loading, setLoading] = useState(false);
     const credentialHandler = (name, data) => {
         if (name === 'email') {
             setEmail(data);
+        } else if (name === 'userName') {
+            setUserName(data);
         } else if (name === 'password') {
             setPass(data);
         }
@@ -28,6 +31,7 @@ function Register() {
         e.preventDefault();
         setLoading(true);
         const data = {
+            name: userName,
             email,
             password: pass,
         };
@@ -76,6 +80,14 @@ function Register() {
                 </CardHeader>
                 <CardBody className="flex flex-col gap-4">
                     <form className="flex flex-col gap-5" onSubmit={handleSignUp}>
+                        <Input
+                            label="Name"
+                            type="text"
+                            value={userName}
+                            name="userName"
+                            size="lg"
+                            onChange={(e) => credentialHandler(e.target.name, e.target.value)}
+                        />
                         <Input
                             label="Email"
                             type="email"

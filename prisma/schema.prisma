@@ -12,6 +12,7 @@ datasource db {
 // User MOdel
 model User {
   id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(250)
   email    String  @unique
   password String
   type     Int     @default(0)
@@ -24,6 +25,7 @@ model Recommendation {
   id      Int    @id @default(autoincrement())
   userId  Int
   bookId  String
+  userName  String  @db.VarChar(250)
   image   String    @db.VarChar(500)
   review  String
   title   String

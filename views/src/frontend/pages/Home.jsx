@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import book from '../../store/api/book';
-import Cards from '../components/Cards';
+import Cards from '../components/books/Cards';
 import CardPlaceholder from '../components/placeholder/Cards';
 
 function Home() {

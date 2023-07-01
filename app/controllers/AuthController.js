@@ -19,6 +19,7 @@ const registerUser = async (req, res) => {
 			const hashPassword = await bcrypt.hash(req.body.password, salt);
 			const newUser = await prisma.user.create({
 				data: {
+					name: req.body.name,
 					email: req.body.email,
 					password: hashPassword,
 				},
@@ -27,6 +28,7 @@ const registerUser = async (req, res) => {
 				const token = await jwt.sign(
 					{
 						id: newUser.id,
+						name: newUser.name,
 						email: newUser.email,
 						type: newUser.type,
 					},
@@ -78,6 +80,7 @@ const loginUser = async (req, res) => {
 					const token = await jwt.sign(
 						{
 							id: user.id,
+							name: user.name,
 							email: user.email,
 							type: user.type,
 						},
