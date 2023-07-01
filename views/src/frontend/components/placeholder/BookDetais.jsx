@@ -12,7 +12,7 @@ export default function BookDetais() {
                         </div>
                     </CardHeader>
                     <CardBody className="my-6 w-2/3">
-                        <Typography variant="h2" color="blue-gray" className="mb-2 text-lg">
+                        <Typography variant="h6" color="blue-gray" className="mb-2 text-lg">
                             <div className="animate-pulse">
                                 <div className="h-4 bg-gray-300 rounded w-10/12 mb-2" />
                             </div>
@@ -27,7 +27,7 @@ export default function BookDetais() {
                                 <div className="h-4 bg-gray-300 rounded w-6/12 mb-2" />
                             </div>
                         </Typography>
-                        <Typography color="gray" className="font-normal mb-8">
+                        <Typography variant="h6" color="gray" className="font-normal mb-8">
                             <div className="animate-pulse">
                                 <div className="h-4 bg-gray-300 rounded w-full mb-2" />
                                 <div className="h-4 bg-gray-300 rounded w-11/12 mb-2" />

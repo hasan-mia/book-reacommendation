@@ -15,7 +15,6 @@ export default function BookDetails() {
             dispatch(book.getBookDetails(id));
         }
     }, [dispatch, id, bookDetails]);
-    console.log(bookDetails);
 
     return isBookLoading ? (
         <BookDetais />
@@ -47,9 +46,11 @@ export default function BookDetails() {
                         <Typography variant="h6" color="green" className="mb-2 text-sm">
                             Publisher: &nbsp;{bookDetails?.publisher}
                         </Typography>
-                        <Typography color="gray" className="font-normal mb-8">
+                        <Typography variant="h6" color="gray" className="font-normal mb-8">
                             {bookDetails?.description.split('.').map((d) => (
-                                <li className="text-md px-0 last:list-none">{d}</li>
+                                <li className="text-md px-0 last:list-none" key={Math.random()}>
+                                    {d}
+                                </li>
                             ))}
                         </Typography>
                     </CardBody>
@@ -61,7 +62,7 @@ export default function BookDetails() {
                     image={bookDetails?.imageLinks?.thumbnail}
                     title={bookDetails?.title}
                     description={bookDetails?.description}
-                    author={bookDetails?.authors}
+                    author={bookDetails?.authors[0]}
                     source={bookDetails?.previewLink}
                 />
             </div>

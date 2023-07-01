@@ -11,6 +11,7 @@ recommend.createRecommend = async (data) => {
         .post(url.createRecommend, data, config.basicHeader)
         .then((response) => response)
         .catch((err) => err.response);
+    console.log(res);
     return res;
 };
 // update recommend

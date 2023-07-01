@@ -10,7 +10,7 @@ const RecommendSlice = createSlice({
         recommends: null,
         isRatingLoading: false,
         isRatingError: false,
-        ratings: null,
+        ratings: 0,
     },
     extraReducers: (builder) => {
         // get all post
@@ -36,7 +36,7 @@ const RecommendSlice = createSlice({
         builder.addCase(recommend.getAllRating.fulfilled, (state, action) => {
             const { data } = action.payload;
             state.isRatingLoading = false;
-            state.ratings = data.data;
+            state.ratings = data.data.averageRating;
         });
 
         builder.addCase(recommend.getAllRating.rejected, (state) => {

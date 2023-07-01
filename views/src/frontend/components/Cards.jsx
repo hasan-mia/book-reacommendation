@@ -1,6 +1,5 @@
 import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
 import { HiArrowRight } from 'react-icons/hi2';
-import { Link } from 'react-router-dom';
 
 export default function Cards({ book, id }) {
     return (
@@ -29,16 +28,16 @@ export default function Cards({ book, id }) {
                 <Typography variant="h6" color="green" className="mb-2 text-sm">
                     Publisher: &nbsp;{book.publisher}
                 </Typography>
-                <Typography color="gray" className="font-normal mb-8">
+                <Typography variant="h6" color="gray" className="font-normal mb-8">
                     {book.description.length >= 120 && book.description.slice(0, 120)}
                 </Typography>
-                <Link
-                    to={`/details/${id}`}
+                <a
+                    href={`/details/${id}`}
                     className="flex items-center justify-center text-green-700 font-bold gap-2"
                 >
-                    <p>Learn More</p>
+                    Learn More
                     <HiArrowRight strokeWidth={2} className="w-4 h-4" />
-                </Link>
+                </a>
             </CardBody>
         </Card>
     );
