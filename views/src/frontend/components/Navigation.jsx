@@ -45,13 +45,17 @@ function Navigation() {
     );
 
     return (
-        <Navbar className="mx-auto max-w-full hover:no-underline py-2 lg:py-4 px-0 rounded-none shadow-none border-b-2 border-b-blue-gray-50">
+        <Navbar
+            className="mx-auto max-w-full hover:no-underline py-2 lg:py-4 px-0 rounded-none shadow-none border-b-2 border-b-blue-gray-50 fixed top-0 w-full z-50"
+            color="white"
+            brand="My App"
+        >
             <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
                 <Link
                     to="/"
                     className="bg-transparent border p-2 border-r-4 border-l-4 border-dashed border-green-700 text-xl uppercase font-bold rounded-none text-red-400 hover:no-underline no-underline"
                 >
-                    Recommend Book
+                    <img src="/icon.png" className="w-48" alt="logo" />
                 </Link>
                 <div className="hidden lg:block">{navList}</div>
                 <div className="hidden lg:inline-block">

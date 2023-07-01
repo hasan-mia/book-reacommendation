@@ -1,5 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react';
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Input,
+    Spinner,
+    Typography,
+} from '@material-tailwind/react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -106,7 +115,7 @@ function Register() {
                             onChange={(e) => credentialHandler(e.target.name, e.target.value)}
                             onClick={activeHandler}
                         />
-                        <Button color="red" type="submit">
+                        <Button color="red" type="submit" disabled={loading}>
                             Signup
                         </Button>
                     </form>
@@ -115,6 +124,13 @@ function Register() {
                         <Link to="/signin">Signin</Link>
                     </div>
                 </CardBody>
+                <CardFooter>
+                    {loading && (
+                        <div className="flex justify-center">
+                            <Spinner color="amber" />
+                        </div>
+                    )}
+                </CardFooter>
             </Card>
         </div>
     );

@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
 import React from 'react';
 
-export default function Cards() {
+export default function BookCard() {
     const data = [0, 1, 2, 3];
     return data.map((index) => (
         <Card className="flex-col justify-center" key={index}>

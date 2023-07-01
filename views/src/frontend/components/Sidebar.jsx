@@ -1,4 +1,13 @@
-import { Button, Card, CardBody, CardHeader, Rating, Textarea } from '@material-tailwind/react';
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Rating,
+    Spinner,
+    Textarea,
+} from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +18,7 @@ export default function Sidebar({ bookId, image, title, description, author, sou
     const { userInfo } = useSelector((state) => state.auth);
     const { ratings } = useSelector((state) => state.recommend);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [text, setText] = useState('');
     const rating = ratings.toFixed(1);
     const [rated, setRated] = useState(Math.trunc(ratings));
@@ -21,6 +31,7 @@ export default function Sidebar({ bookId, image, title, description, author, sou
     };
     const handleReview = async (e) => {
         e.preventDefault();
+        setLoading(true);
         if (!userInfo) {
             toast.error('please login first');
             navigate('/signin', { replace: false });
@@ -48,10 +59,12 @@ export default function Sidebar({ bookId, image, title, description, author, sou
             const res = await recommend.createRecommend(data);
             if (res.status === 201) {
                 setText('');
+                setLoading(false);
                 toast.success(`You rating this book ${rated}`);
                 dispatch(recommend.getAllRating(bookId));
             } else {
                 toast.error(`${res.data.error}`);
+                setLoading(false);
             }
         }
     };
@@ -62,11 +75,11 @@ export default function Sidebar({ bookId, image, title, description, author, sou
         }
     }, [dispatch, bookId, ratings]);
     return (
-        <Card className="flex-col justify-center items-center mt-5 lg:mt-0">
+        <Card className="flex-col justify-center items-center mt-5 lg:mt-0 p-0">
             <CardHeader
                 shadow={false}
                 floated={false}
-                className="w-full flex justify-between px-4 shrink-0 m-0 rounded-r-none"
+                className="w-full flex justify-between p-2 shrink-0 mt-2 rounded-r-none py-0"
             >
                 <Rating value={rated} onChange={(value) => setRated(value)} />
                 <p className="text-xl">{rating || '0.0'}</p>
@@ -78,14 +91,21 @@ export default function Sidebar({ bookId, image, title, description, author, sou
                         type="text"
                         value={text}
                         name="text"
-                        size="lg"
+                        className="p-0 m-0"
                         onChange={(e) => credentialHandler(e.target.name, e.target.value)}
                     />
-                    <Button color="red" type="submit">
+                    <Button color="red" type="submit" disabled={loading}>
                         Submit
                     </Button>
                 </form>
             </CardBody>
+            <CardFooter>
+                {loading && (
+                    <div className="flex justify-center">
+                        <Spinner color="amber" />
+                    </div>
+                )}
+            </CardFooter>
         </Card>
     );
 }

@@ -7,7 +7,7 @@ function AppLayout({ children }) {
     return (
         <>
             <Navigation />
-            <div className="container mx-auto min-h-screen">{children}</div>
+            <div className="container mx-auto min-h-screen pt-24 pb-10">{children}</div>
             <Footer />
             <Toaster
                 position="top-center"

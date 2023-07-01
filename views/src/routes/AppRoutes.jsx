@@ -23,8 +23,8 @@ function AppRoutes() {
                 }
             >
                 <Route path="/" element={<Home />} />
-                <Route path="/details/:id" element={<BookDetails />} />
-                <Route path="/review" element={<Review />} />
+                <Route path="/details/:id" element={<BookDetails />} forceRefresh />
+                <Route path="/review" element={<Review />} forceRefresh />
                 <Route path="/signin" element={<Login />} />
                 <Route path="/signup" element={<Register />} />
             </Route>

@@ -1,5 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react';
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Input,
+    Spinner,
+    Typography,
+} from '@material-tailwind/react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -97,7 +106,7 @@ function Login() {
                             onChange={(e) => credentialHandler(e.target.name, e.target.value)}
                             onClick={activeHandler}
                         />
-                        <Button color="green" type="submit">
+                        <Button color="green" type="submit" disabled={loading}>
                             Signin
                         </Button>
                     </form>
@@ -106,6 +115,13 @@ function Login() {
                         <Link to="/signup">Signup</Link>
                     </div>
                 </CardBody>
+                <CardFooter>
+                    {loading && (
+                        <div className="flex justify-center">
+                            <Spinner color="amber" />
+                        </div>
+                    )}
+                </CardFooter>
             </Card>
         </div>
     );

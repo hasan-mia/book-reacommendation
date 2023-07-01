@@ -1,45 +1,44 @@
 /* eslint-disable no-unused-vars */
-import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
-import { HiArrowRight } from 'react-icons/hi2';
+import { Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import recommend from '../../../store/api/recommend';
 
 export default function Cards({ review, id }) {
+    const { ratings } = useSelector((state) => state.recommend);
+    const dispatch = useDispatch();
+    const rating = ratings.toFixed(1);
+    useEffect(() => {
+        if (!ratings) {
+            dispatch(recommend.getAllRating(id));
+        }
+    }, [dispatch, id, ratings]);
     return (
-        <Card className="flex-col justify-center">
-            <CardHeader
-                shadow={false}
-                floated={false}
-                className="w-full flex justify-center shrink-0 m-0 rounded-r-none"
-            >
-                {/* <img
-                    src={book?.imageLinks?.thumbnail}
-                    alt={book.title}
-                    className="boject-cover w-2/3"
-                /> */}
+        <Card className="w-96">
+            <CardHeader shadow={false} floated={false} className="h-96">
+                <img src={review.image} className="w-full h-full object-cover" alt={review.title} />
             </CardHeader>
             <CardBody>
-                <Typography variant="h2" color="blue-gray" className="mb-2 text-lg">
-                    {/* {book.title} */}
+                <div className="flex items-center justify-between mb-2">
+                    <Typography color="blue-gray" className="font-medium">
+                        {review.title}
+                    </Typography>
+                    <Typography color="blue-gray" className="font-medium">
+                        {rating} by {review.userName.split(' ')[0]}
+                    </Typography>
+                </div>
+                <Typography variant="small" color="gray" className="font-normal opacity-75">
+                    {review.review}
                 </Typography>
-                <Typography variant="h6" color="blue" className="mb-2 text-sm">
-                    {/* Author: &nbsp;
-                    {book.authors?.map((item) => (
-                        <span key={Math.random()}>{item}</span>
-                    ))} */}
-                </Typography>
-                <Typography variant="h6" color="green" className="mb-2 text-sm">
-                    {/* Publisher: &nbsp;{book.publisher} */}
-                </Typography>
-                <Typography variant="h6" color="gray" className="font-normal mb-8">
-                    {/* {book.description.length >= 120 && book.description.slice(0, 120)} */}
-                </Typography>
+            </CardBody>
+            <CardFooter className="pt-0 text-center">
                 <a
                     href={`/details/${id}`}
-                    className="flex items-center justify-center text-green-700 font-bold gap-2"
+                    className="bg-blue-gray-900/10 rounded-md p-2 text-center text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100"
                 >
-                    View
-                    <HiArrowRight strokeWidth={2} className="w-4 h-4" />
+                    View Book
                 </a>
-            </CardBody>
+            </CardFooter>
         </Card>
     );
 }
