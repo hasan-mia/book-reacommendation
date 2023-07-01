@@ -84,8 +84,8 @@ export default function Sidebar({ bookId, image, title, description, author, sou
                 <Rating value={rated} onChange={(value) => setRated(value)} />
                 <p className="text-xl">{rating || '0.0'}</p>
             </CardHeader>
-            <CardBody>
-                <form className="grid gap-2" onSubmit={handleReview}>
+            <CardBody className="px-0 mx-0 pb-0">
+                <form className="grid gap-y-2 mx-0 px-0" onSubmit={handleReview}>
                     <Textarea
                         label="Review"
                         type="text"
@@ -99,7 +99,7 @@ export default function Sidebar({ bookId, image, title, description, author, sou
                     </Button>
                 </form>
             </CardBody>
-            <CardFooter>
+            <CardFooter className="px-0 py-2">
                 {loading && (
                     <div className="flex justify-center">
                         <Spinner color="amber" />

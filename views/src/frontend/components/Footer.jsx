@@ -2,8 +2,8 @@ import { Typography } from '@material-tailwind/react';
 
 export default function Example() {
     return (
-        <footer className="w-full bg-green-700 p-8">
-            <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-white text-center md:justify-between">
+        <footer className="w-full bg-gray-50 p-8">
+            <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between">
                 <div className="flex items-center gap-2 font-semibold uppercase">
                     <img
                         src="/logo.png"
@@ -18,17 +18,17 @@ export default function Example() {
                         <Typography
                             as="a"
                             href="#"
-                            color="white"
+                            color="blue-gray"
                             className="font-normal transition-colors hover:text-red-500 focus:text-red-500"
                         >
-                            About Us
+                            Aout Us
                         </Typography>
                     </li>
                     <li>
                         <Typography
                             as="a"
                             href="#"
-                            color="white"
+                            color="blue-gray"
                             className="font-normal transition-colors hover:text-red-500 focus:text-red-500"
                         >
                             License
@@ -38,7 +38,7 @@ export default function Example() {
                         <Typography
                             as="a"
                             href="#"
-                            color="white"
+                            color="blue-gray"
                             className="font-normal transition-colors hover:text-red-500 focus:text-red-500"
                         >
                             Contribute
@@ -48,7 +48,7 @@ export default function Example() {
                         <Typography
                             as="a"
                             href="#"
-                            color="white"
+                            color="blue-gray"
                             className="font-normal transition-colors hover:text-red-500 focus:text-red-500"
                         >
                             Contact Us
@@ -57,7 +57,7 @@ export default function Example() {
                 </ul>
             </div>
             <hr className="my-8 border-blue-gray-50" />
-            <Typography color="white" className="text-center font-normal">
+            <Typography color="blue-gray" className="text-center font-normal">
                 &copy; 2023 Recommend Book
             </Typography>
         </footer>

@@ -21,7 +21,7 @@ export default function BookDetails() {
     ) : (
         <div className="flex flex-col lg:flex-row lg:gap-6 my-5">
             <div className="w-12/12 lg:w-8/12">
-                <Card className="flex-row justify-center w-full">
+                <Card className="flex-row justify-center w-full px-0 py-0">
                     <CardHeader
                         shadow={false}
                         floated={false}
@@ -33,7 +33,7 @@ export default function BookDetails() {
                             className="boject-fit w-full h-auto"
                         />
                     </CardHeader>
-                    <CardBody>
+                    <CardBody className="px-2 py-0">
                         <Typography variant="h2" color="blue-gray" className="mb-2 text-lg">
                             {bookDetails?.title}
                         </Typography>

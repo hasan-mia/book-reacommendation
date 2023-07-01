@@ -15,7 +15,7 @@ export default function Cards({ book, id }) {
                     className="boject-cover w-2/3 max-h-48"
                 />
             </CardHeader>
-            <CardBody className="text-center px-1 mb-0 pb-0">
+            <CardBody className="text-center px-1 mb-0 pb-0" style={{ minHeight: '15rem' }}>
                 <Typography
                     variant="h2"
                     color="blue-gray"
@@ -35,7 +35,7 @@ export default function Cards({ book, id }) {
                     Published by &nbsp; <span className="font-semibold">{book.publisher}</span>
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="font-thin mb-2">
-                    {book.description.length >= 60 && book.description.slice(0, 60)}
+                    {book.description.length >= 80 && book.description.slice(0, 80)}
                 </Typography>
             </CardBody>
             <CardFooter>

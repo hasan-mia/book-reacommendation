@@ -2,7 +2,7 @@ import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react
 import React from 'react';
 
 export default function BookCard() {
-    const data = [0, 1, 2, 3, 4, 5];
+    const data = [0, 1, 2, 3, 4];
     return data.map((index) => (
         <Card className="flex-col justify-center" key={index}>
             <CardHeader shadow={false} floated={false} className="mt-6">
